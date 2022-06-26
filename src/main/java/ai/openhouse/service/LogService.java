@@ -76,6 +76,16 @@ public class LogService {
             }
         }
 
+        Iterator<AppLog> itr = allLogs.iterator();
+
+        while (itr.hasNext()) {
+            AppLog appLog = itr.next();
+
+            if (appLog.getActions().size() == 0) {
+                itr.remove();
+            }
+        }
+
         return allLogs;
     }
 

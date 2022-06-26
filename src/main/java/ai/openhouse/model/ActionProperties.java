@@ -9,6 +9,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
@@ -19,6 +21,7 @@ import lombok.Setter;
 @Table(name = "actionproperties")
 @Getter
 @Setter
+@JsonInclude(Include.NON_NULL)
 public class ActionProperties extends PanacheEntityBase {
 
     @Id
@@ -29,11 +32,11 @@ public class ActionProperties extends PanacheEntityBase {
 
     @Column(name = "location_x")
     @JsonProperty("locationX")
-    private double locationX;
+    private Double locationX;
 
     @Column(name = "location_y")
     @JsonProperty("locationY")
-    private double locationY;
+    private Double locationY;
 
     @Column(name = "viewer_id")
     @JsonProperty("viewedId")
