@@ -172,5 +172,4 @@ To make cloud scalable and to query millions of data points:
 - Cache REST endpoints
 - Load balance the servers
 - Add unit tests with maximum coverage
-
-Use a database that supports horizontal scaling, eg MongoDB
+- Scale the database horizontally
