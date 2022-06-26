@@ -8,14 +8,17 @@ Backend Assessment - retrieving logs
 
    - JDK version 11.0.11 or above
    - Maven version 3.6.3 or above (if not using maven wrapper)
+   - MySQL server version 8.0.29 or above
 
-2. Run the command from project's root to launch the application. This will launch the application on `8080` port.
+2. Connect to your MySQL server using an admin user like `root`, and run the script [`sql/init.sql`](sql/init.sql) to setup the database. This script will create a schema `ohai_db`, a user `ohai_app` with password `ohai_password`.
+
+3. Run the command from project's root to launch the application. This will launch the application on `8080` port.
 
    ```bash
    $ mvn clean quarkus:dev
    ```
 
-3. The API can be accessed using the URL `http://localhost:8080/api`
+4. The API can be accessed using the URL `http://localhost:8080/api`.
 
 ## Storing Logs
 
@@ -155,7 +158,7 @@ Backend Assessment - retrieving logs
   $ curl -X GET http://localhost:8080/api/retrieve/all
   ```
 
-- Make a get call to `/api/retrieve` with parameters to retrieve logs based on user, time range, or log type. For example:
+- Make a get call to `/api/retrieve` with parameters to retrieve logs based on user, time range, or log type. Any combination of these parameters can be used. For example:
 
   ```bash
   $ curl -X GET http://localhost:8080/api/retrieve?user=USER123&type=NAVIGATE&startTime=2022-06-01T21:37:30-06:00&endTime=2022-06-25T21:37:28-06:00
