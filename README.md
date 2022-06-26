@@ -150,7 +150,7 @@ Backend Assessment - retrieving logs
   ]' http://localhost:8080/api/storeall
   ```
 
-### Retrieving Logs
+## Retrieving Logs
 
 - Make a get call to `/api/retrieve/all` to retrieve all logs. For example:
 
@@ -163,3 +163,14 @@ Backend Assessment - retrieving logs
   ```bash
   $ curl -X GET http://localhost:8080/api/retrieve?user=USER123&type=NAVIGATE&startTime=2022-06-01T21:37:30-06:00&endTime=2022-06-25T21:37:28-06:00
   ```
+
+## Follow-up Questions
+
+To make cloud scalable and to query millions of data points:
+
+- Add indexes to the database
+- Cache REST endpoints
+- Load balance the servers
+- Add unit tests with maximum coverage
+
+Use a database that supports horizontal scaling, eg MongoDB
