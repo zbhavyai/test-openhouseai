@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class AppLog extends PanacheEntityBase {
     @JsonProperty("sessionId")
     private String sessionId;
 
-    @OneToMany(mappedBy = "logId", cascade = { CascadeType.ALL })
+    @OneToMany(mappedBy = "logId", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JsonProperty("actions")
     private List<Actions> actions;
 }

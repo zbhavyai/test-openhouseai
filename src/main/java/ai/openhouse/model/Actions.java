@@ -5,6 +5,7 @@ import java.time.ZonedDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,7 +48,7 @@ public class Actions extends PanacheEntityBase {
     @JsonIgnore
     private AppLog logId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "properties_id", foreignKey = @ForeignKey(name = "fk_actions_actionproperties"))
     @JsonProperty("properties")
     private ActionProperties properties;
