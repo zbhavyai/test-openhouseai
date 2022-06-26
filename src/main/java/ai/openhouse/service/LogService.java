@@ -1,10 +1,9 @@
 package ai.openhouse.service;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
@@ -12,6 +11,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ai.openhouse.enums.ActionType;
 import ai.openhouse.model.Actions;
 import ai.openhouse.model.AppLog;
 
@@ -30,24 +30,53 @@ public class LogService {
     @Transactional
     public List<AppLog> retrieveLogs(Map<String, Object> parameters) {
 
-        this.logger.info("Retrieving logs");
+        this.logger.info("Mapped parameters: user={}, startTime={}, endTime={}, type={}", parameters.get("user"),
+                parameters.get("startTime"), parameters.get("endTime"), parameters.get("type"));
 
         if (parameters.isEmpty()) {
             return this.retrieveAllLogs();
         }
 
-        parameters.entrySet().stream().forEach(p -> {
-            this.logger.info(String.format("%s=%s", p.getKey(), p.getValue()));
-        });
+        ZonedDateTime start = (ZonedDateTime) parameters.get("startTime");
+        ZonedDateTime end = (ZonedDateTime) parameters.get("endTime");
+        ActionType type = (ActionType) parameters.get("type");
 
-        if (((ZonedDateTime) parameters.get("startTime")).isAfter((ZonedDateTime) parameters.get("endTime"))) {
-            return new ArrayList<AppLog>();
+        List<AppLog> allLogs;
+
+        if (parameters.get("user") == null) {
+            allLogs = AppLog.listAll();
+        } else {
+            allLogs = AppLog.find("user_id", parameters.get("user")).list();
         }
 
-        String query = parameters.entrySet().stream().map(entry -> entry.getKey() + "=:" + entry.getKey())
-                .collect(Collectors.joining(" and "));
+        for (int i = 0; i < allLogs.size(); i++) {
+            AppLog currentLog = allLogs.get(i);
 
-        return AppLog.find(query, parameters).list();
+            List<Actions> allActions = currentLog.getActions();
+
+            Iterator<Actions> itr = allActions.iterator();
+
+            while (itr.hasNext()) {
+                Actions actions = itr.next();
+
+                if (start != null && actions.getTime().isBefore(start)) {
+                    itr.remove();
+                    continue;
+                }
+
+                if (end != null && actions.getTime().isAfter(end)) {
+                    itr.remove();
+                    continue;
+                }
+
+                if (type != null && !actions.getType().equals(type)) {
+                    itr.remove();
+                    continue;
+                }
+            }
+        }
+
+        return allLogs;
     }
 
     @Transactional

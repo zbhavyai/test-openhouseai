@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -42,27 +41,26 @@ public class LogRest {
     @GET
     @Path("retrieve")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AppLog> retrieveLogs(@QueryParam("user") @DefaultValue("") String user,
-            @QueryParam("start") @DefaultValue("") String startTimeString,
-            @QueryParam("end") @DefaultValue("") String endTimeString,
-            @QueryParam("type") @DefaultValue("") String actionTypeString) {
+    public List<AppLog> retrieveLogs(@QueryParam("user") String user, @QueryParam("startTime") String startTimeString,
+            @QueryParam("endTime") String endTimeString, @QueryParam("type") String actionTypeString) {
+
+        this.logger.info("Received parameters: user={}, startTime={}, endTime={}, type={}", user, startTimeString,
+                endTimeString, actionTypeString);
 
         Map<String, Object> parameters = new HashMap<String, Object>();
 
-        if (!user.equals("")) {
-            parameters.put("user", user);
-        }
+        parameters.put("user", user);
 
-        if (!startTimeString.equals("")) {
+        if (startTimeString != null) {
             parameters.put("startTime", ZonedDateTime.parse(startTimeString));
         }
 
-        if (!endTimeString.equals("")) {
+        if (endTimeString != null) {
             parameters.put("endTime", ZonedDateTime.parse(endTimeString));
         }
 
-        if (!actionTypeString.equals("")) {
-            parameters.put("endTime", ActionType.valueOf(actionTypeString));
+        if (actionTypeString != null) {
+            parameters.put("type", ActionType.valueOf(actionTypeString));
         }
 
         return this.service.retrieveLogs(parameters);
