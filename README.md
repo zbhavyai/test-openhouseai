@@ -53,7 +53,7 @@ Backend Assessment - retrieving logs
         }
      }
   ]
-  }' http://localhost:8080/api/store
+  }' 'http://localhost:8080/api/store'
   ```
 
 - Make a post call to `/api/storeall` with array of log entries as payload. For example:
@@ -147,7 +147,7 @@ Backend Assessment - retrieving logs
         }
      ]
   }
-  ]' http://localhost:8080/api/storeall
+  ]' 'http://localhost:8080/api/storeall'
   ```
 
 ## Retrieving Logs
@@ -155,13 +155,13 @@ Backend Assessment - retrieving logs
 - Make a get call to `/api/retrieve/all` to retrieve all logs. For example:
 
   ```bash
-  $ curl -X GET http://localhost:8080/api/retrieve/all
+  $ curl -X GET 'http://localhost:8080/api/retrieve/all'
   ```
 
 - Make a get call to `/api/retrieve` with parameters to retrieve logs based on user, time range, or log type. Any combination of these parameters can be used. For example:
 
   ```bash
-  $ curl -X GET http://localhost:8080/api/retrieve?user=USER123&type=NAVIGATE&startTime=2022-06-01T21:37:30-06:00&endTime=2022-06-25T21:37:28-06:00
+  $ curl -X GET 'http://localhost:8080/api/retrieve?user=USER123&type=NAVIGATE&startTime=2022-06-01T21:37:30-06:00&endTime=2022-06-25T21:37:28-06:00'
   ```
 
 ## Follow-up Questions
