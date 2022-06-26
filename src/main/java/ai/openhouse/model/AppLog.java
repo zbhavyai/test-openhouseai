@@ -42,4 +42,20 @@ public class AppLog extends PanacheEntityBase {
     @OneToMany(mappedBy = "logId", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JsonProperty("actions")
     private List<Actions> actions;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n[\n");
+        sb.append("  id=").append(this.id).append("\n");
+        sb.append("  userId=").append(this.userId).append("\n");
+        sb.append("  sessionId=").append(this.sessionId).append("\n");
+
+        this.actions.stream().forEach(a -> sb.append(a.toString()));
+
+        sb.append("]");
+
+        return sb.toString();
+    }
 }

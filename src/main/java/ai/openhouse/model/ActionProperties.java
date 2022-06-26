@@ -50,4 +50,20 @@ public class ActionProperties extends PanacheEntityBase {
     @OneToOne(mappedBy = "properties")
     @JsonIgnore
     private Actions action;
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("[ id=").append(this.id);
+        sb.append(", locationX=").append(this.locationX);
+        sb.append(", locationY=").append(this.locationY);
+        sb.append(", viewerId=").append(this.viewedId);
+        sb.append(", pageFrom=").append(this.pageFrom);
+        sb.append(", pageTo=").append(this.pageTo);
+        sb.append(" ]");
+
+        return sb.toString();
+    }
 }

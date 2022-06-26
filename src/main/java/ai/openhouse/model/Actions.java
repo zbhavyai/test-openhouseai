@@ -52,4 +52,17 @@ public class Actions extends PanacheEntityBase {
     @JoinColumn(name = "properties_id", foreignKey = @ForeignKey(name = "fk_actions_actionproperties"))
     @JsonProperty("properties")
     private ActionProperties properties;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("  [ id=").append(this.id);
+        sb.append(", time=").append(this.time);
+        sb.append(", type=").append(this.type);
+        sb.append(", properties=").append(this.properties);
+        sb.append(" ]\n");
+
+        return sb.toString();
+    }
 }

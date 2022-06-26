@@ -14,6 +14,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ai.openhouse.enums.ActionType;
 import ai.openhouse.model.AppLog;
 import ai.openhouse.service.LogService;
@@ -21,6 +24,7 @@ import ai.openhouse.service.LogService;
 @Path("api")
 public class LogRest {
 
+    private final Logger logger = LoggerFactory.getLogger(LogService.class);
     private final LogService service;
 
     @Inject
