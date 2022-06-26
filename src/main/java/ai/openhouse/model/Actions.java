@@ -2,13 +2,16 @@ package ai.openhouse.model;
 
 import java.time.ZonedDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,21 +29,26 @@ import lombok.Setter;
 public class Actions extends PanacheEntityBase {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "actions_id")
     @JsonIgnore
     private Long id;
 
-    @Column(name = "time")
+    @Column(name = "action_time")
     @JsonProperty("time")
     private ZonedDateTime time;
 
-    @Column(name = "type")
+    @Column(name = "action_type")
     @JsonProperty("type")
     private ActionType type;
 
     @ManyToOne
-    @JoinColumn(name = "applog_id", foreignKey = @ForeignKey(name = "fk_actions_applog"))
+    @JoinColumn(name = "log_id", foreignKey = @ForeignKey(name = "fk_actions_applog"))
     @JsonIgnore
+    private AppLog logId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "properties_id", foreignKey = @ForeignKey(name = "fk_actions_actionproperties"))
+    @JsonProperty("properties")
     private ActionProperties properties;
 }

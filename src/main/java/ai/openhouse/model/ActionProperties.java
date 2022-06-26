@@ -3,7 +3,9 @@ package ai.openhouse.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,8 +22,8 @@ import lombok.Setter;
 public class ActionProperties extends PanacheEntityBase {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "properties_id")
     @JsonIgnore
     private Long id;
 
@@ -44,4 +46,8 @@ public class ActionProperties extends PanacheEntityBase {
     @Column(name = "page_to")
     @JsonProperty("pageTo")
     private String pageTo;
+
+    @OneToOne(mappedBy = "properties")
+    @JsonIgnore
+    private Actions action;
 }
