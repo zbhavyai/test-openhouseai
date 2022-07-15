@@ -8,9 +8,9 @@ Backend Assessment - retrieving logs
 
    - JDK version 11.0.11 or above
    - Maven version 3.6.3 or above (if not using maven wrapper)
-   - MySQL server version 8.0.29 or above
+   - PostgreSQL version 14.4 or above
 
-2. Connect to your MySQL server using an admin user like `root`, and run the script [`sql/init.sql`](sql/init.sql) to setup the database. This script will create a schema `ohai_db`, a user `ohai_app` with password `ohai_password`.
+2. Start your postgres database server. Set the property `quarkus.datasource.password` with the password of the user `postgres` in the file [application.properties](src/main/resources/application.properties).
 
 3. Run the command from project's root to launch the application. This will launch the application on `8080` port.
 
